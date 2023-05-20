@@ -34,3 +34,23 @@ const colorPallete = (colors) => {
   }
 };
 colorPallete(['black', 'red', 'yellow', 'green']);
+
+// 4 - Adicione um botão para gerar cores aleatórias para a paleta de cores
+
+nav.appendChild(elementCreator('div', 'button-random-color', 0, 'Cores aleatórias'));
+
+const randomColor = () => {
+  const r = Math.floor(Math.random() * 256);
+  const g = Math.floor(Math.random() * 256);
+  const b = Math.floor(Math.random() * 256);
+  return `rgb(${r}, ${g}, ${b})`;
+};
+
+const randomButton = document.getElementById('button-random-color');
+
+randomButton.addEventListener('click', () => {
+  const pallete = document.getElementsByClassName('color');
+  for (let i = 1; i < pallete.length; i += 1) {
+    pallete[i].style.backgroundColor = randomColor();
+  }
+});
