@@ -1,12 +1,17 @@
 h1 {
   text-transform: uppercase;
-  margin-left: 70px;
+  margin-left: 20px;
+  font-size: 27px;
+}
+
+#color-palette {
+  margin-left: 20px;
 }
 
 .color {
   display: inline-block;
-  height: 100px;
-  width: 100px;
+  height: 53px;
+  width: 53px;
   border: solid 1px black;
   margin-right: 10px;
 }
@@ -16,9 +21,26 @@ h1 {
   padding: 5px;
   border: solid 3px black;
   text-align: center;
-  width: 420px;
+  width: 235px;
   margin-top: 10px;
   background-color: lightgray;
   text-transform: uppercase;
   font-weight: 550;
+  margin-left: 20px;
+}
+
+.pixel {
+  display: inline-block;
+  height: 40px;
+  width: 40px;
+  border: solid 1px black;
+  margin-right: 10px;
+  margin-bottom: 5px;
+  background-color: white;
+}
+
+#pixel-board {
+  max-width: 260px;
+  margin-top: 40px;
+  margin-left: 20px;
 }

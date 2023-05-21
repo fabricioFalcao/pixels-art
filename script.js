@@ -62,10 +62,24 @@ randomButton.addEventListener('click', () => {
 const loadPallete = () => {
   const newPallete = JSON.parse(localStorage.getItem('colorPalette'));
   const pallete = document.getElementsByClassName('color');
-  for (let i = 0; i < pallete.length; i += 1) {
-    pallete[i].style.backgroundColor = newPallete[i];
+  if (newPallete) {
+    for (let i = 0; i < pallete.length; i += 1) {
+      pallete[i].style.backgroundColor = newPallete[i];
+    }
   }
 };
+
+// 6 - Adicione à página um quadro contendo 25 pixels
+
+const main = document.querySelector('main');
+main.appendChild(elementCreator('section', 'pixel-board', 0, 0));
+
+const board = document.querySelector('#pixel-board');
+for (let i = 1; i <= 25; i += 1) {
+  board.appendChild(elementCreator('div', 0, 'pixel', 0));
+};
+
+// Functions on load
 
 window.onload = () => {
   colorPallete(['black', 'red', 'yellow', 'green']);
