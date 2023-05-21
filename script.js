@@ -67,7 +67,6 @@ const loadPallete = () => {
   }
 };
 
-
 window.onload = () => {
   colorPallete(['black', 'red', 'yellow', 'green']);
   loadPallete();
