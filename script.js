@@ -78,16 +78,31 @@ main.appendChild(elementCreator('section', 'pixel-board', 0, 0));
 const board = document.querySelector('#pixel-board');
 for (let i = 1; i <= 25; i += 1) {
   board.appendChild(elementCreator('div', 0, 'pixel', 0));
-};
+}
 
 // 8 - Defina a cor preta como cor inicial da paleta de cores
 
 const blackBox = document.querySelector('.color');
 blackBox.classList.add('selected');
 
+// 9 - Crie uma função para selecionar uma cor na paleta de cores
+
+const selectColor = () => {
+  const pallete = document.querySelectorAll('.color');
+
+  for (let box = 0; box < pallete.length; box += 1) {
+    pallete[box].addEventListener('click', (event) => {
+      const previousSelected = document.querySelector('.color.selected');
+      previousSelected.classList.remove('selected');
+      event.target.classList.add('selected');
+    });
+  }
+};
+
 // Functions on load
 
 window.onload = () => {
   loadPallete();
+  selectColor();
 
 };
