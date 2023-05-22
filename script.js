@@ -159,6 +159,7 @@ const correctInput = () => {
   } else if (n > 50) {
     n = 50;
   }
+  localStorage.setItem('boardSize', n);
   return n;
 };
 
@@ -191,25 +192,28 @@ const resizeBoard = () => {
     if (event.key === 'Enter' && input.value) {
       newBoard(correctInput());
       input.value = '';
-    } else if (event.key === 'Enter' && !input.value) {
-      alert('Board inválido!');
     }
   });
 };
 
+// 15 - Crie uma função para manter o tamanho novo do board ao recarregar a página
 
-// const resizeBoard = () => {
-//   let n = input.value;
-
+const savedSize = localStorage.getItem('boardSize');
+const loadBoardSize = () => {
+  if (savedSize) {
+    newBoard(Number(savedSize));
+  }
+};
 
 // Functions on load
 
 window.onload = () => {
-  loadPallete();
   add25Board();
+  loadPallete();
   resizeBoard();
+  loadBoardSize();
+  loadBoard();
   selectColor();
   colorPixel();
   clearBoard();
-  loadBoard();
 };
