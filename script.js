@@ -114,6 +114,7 @@ const colorPixel = () => {
     pixels[box].addEventListener('click', (event) => {
       coloredBoard[box] = newColor
       event.target.style.backgroundColor = newColor;
+      localStorage.setItem('pixelBoard', JSON.stringify(coloredBoard));
     });
   }
 };
@@ -127,7 +128,20 @@ clearButton.addEventListener('click', () => {
   for (let index = 0; index < pixels.length; index += 1) {
     pixels[index].style.backgroundColor = blankBoard[index];
   }
+  localStorage.clear();
 });
+
+// 12 - Crie uma função para salvar e recuperar o seu desenho atual no localStorage
+
+const loadBoard = () => {
+  const savedBoard = JSON.parse(localStorage.getItem('pixelBoard'));
+  const pixels = document.querySelectorAll('.pixel');
+  if (savedBoard) {
+    for (let i = 0; i < pixels.length; i += 1) {
+      pixels[i].style.backgroundColor = savedBoard[i];
+    }
+  }
+};
 
 // Functions on load
 
@@ -135,4 +149,5 @@ window.onload = () => {
   loadPallete();
   selectColor();
   colorPixel();
+  loadBoard();
 };
