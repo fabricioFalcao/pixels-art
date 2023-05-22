@@ -72,13 +72,16 @@ const loadPallete = () => {
 
 // 6 - Adicione à página um quadro contendo 25 pixels
 
-const main = document.querySelector('main');
-main.appendChild(elementCreator('section', 'pixel-board', 0, 0));
+const add25Board = () => {
+  const main = document.querySelector('main');
+  main.appendChild(elementCreator('section', 'pixel-board', 0, 0));
 
-const board = document.querySelector('#pixel-board');
-for (let i = 1; i <= 25; i += 1) {
-  board.appendChild(elementCreator('div', 0, 'pixel', 0));
-}
+  const board = document.querySelector('#pixel-board');
+  board.style.maxWidth = '260px';
+  for (let i = 1; i <= 25; i += 1) {
+    board.appendChild(elementCreator('div', 0, 'pixel', 0));
+  }
+};
 
 // 8 - Defina a cor preta como cor inicial da paleta de cores
 
@@ -103,7 +106,7 @@ const selectColor = () => {
 // 10 - Crie uma função que permita preencher um pixel do quadro com a cor selecionada na paleta de cores
 
 const blankBoard = [];
-for (let index = 0; index < 25; index += 1) {
+for (let index = 0; index < 100; index += 1) {
   blankBoard.push('white');
 }
 const coloredBoard = blankBoard.slice();
@@ -122,13 +125,15 @@ const colorPixel = () => {
 
 const clearButton = nav.appendChild(elementCreator('div', 'clear-board', 0, 'Limpar'));
 
-clearButton.addEventListener('click', () => {
-  const pixels = document.querySelectorAll('.pixel');
-  for (let index = 0; index < pixels.length; index += 1) {
-    pixels[index].style.backgroundColor = blankBoard[index];
-  }
-  localStorage.clear();
-});
+const clearBoard = () => {
+  clearButton.addEventListener('click', () => {
+    const pixels = document.querySelectorAll('.pixel');
+    for (let index = 0; index < pixels.length; index += 1) {
+      pixels[index].style.backgroundColor = blankBoard[index];
+    }
+    localStorage.clear();
+  });
+};
 
 // 12 - Crie uma função para salvar e recuperar o seu desenho atual no localStorage
 
@@ -142,11 +147,69 @@ const loadBoard = () => {
   }
 };
 
+// 13 - Crie um input que permita à pessoa usuária preencher um novo tamanho para o quadro de pixels
+
+const input = document.querySelector('input');
+const button = document.querySelector('button');
+
+const correctInput = () => {
+  let n = input.value;
+  if (n < 5) {
+    n = 5;
+  } else if (n > 50) {
+    n = 50;
+  }
+  return n;
+};
+
+const newBoard = (n) => {
+  document.getElementById('pixel-board').remove();
+  localStorage.removeItem('pixelBoard');
+
+  const main = document.querySelector('main');
+  main.appendChild(elementCreator('section', 'pixel-board', 0, 0));
+
+  const board = document.querySelector('#pixel-board');
+  board.style.maxWidth = `${52 * n}px`;
+
+  for (let i = 1; i <= n * n; i += 1) {
+    board.appendChild(elementCreator('div', 0, 'pixel', 0));
+  }
+};
+
+const resizeBoard = () => {
+  button.addEventListener('click', () => {
+    if (input.value) {
+      newBoard(correctInput());
+      input.value = '';
+    } else {
+      alert('Board inválido!');
+    }
+  });
+
+  input.addEventListener('keyup', (event) => {
+    if (event.key === 'Enter' && input.value) {
+      newBoard(correctInput());
+      input.value = '';
+    } else if (event.key === 'Enter' && !input.value) {
+      alert('Board inválido!');
+    }
+  });
+};
+
+
+// const resizeBoard = () => {
+//   let n = input.value;
+
+
 // Functions on load
 
 window.onload = () => {
   loadPallete();
+  add25Board();
+  resizeBoard();
   selectColor();
   colorPixel();
+  clearBoard();
   loadBoard();
 };
