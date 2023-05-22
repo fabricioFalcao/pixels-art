@@ -107,15 +107,27 @@ const blankBoard = [];
 for (let index = 0; index < 25; index += 1) {
   blankBoard.push('white');
 }
+const coloredBoard = blankBoard.slice();
 const colorPixel = () => {
   const pixels = document.querySelectorAll('.pixel');
   for (let box = 0; box < pixels.length; box += 1) {
     pixels[box].addEventListener('click', (event) => {
-      blankBoard[box] = newColor
+      coloredBoard[box] = newColor
       event.target.style.backgroundColor = newColor;
     });
   }
 };
+
+// 11 - Crie um botão que retorne a cor do quadro para a cor inicial
+
+const clearButton = nav.appendChild(elementCreator('div', 'clear-board', 0, 'Limpar'));
+
+clearButton.addEventListener('click', () => {
+  const pixels = document.querySelectorAll('.pixel');
+  for (let index = 0; index < pixels.length; index += 1) {
+    pixels[index].style.backgroundColor = blankBoard[index];
+  }
+});
 
 // Functions on load
 
