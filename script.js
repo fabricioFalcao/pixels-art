@@ -87,14 +87,32 @@ blackBox.classList.add('selected');
 
 // 9 - Crie uma função para selecionar uma cor na paleta de cores
 
-const selectColor = () => {
-  const pallete = document.querySelectorAll('.color');
+let newColor = 'black';
 
-  for (let box = 0; box < pallete.length; box += 1) {
-    pallete[box].addEventListener('click', (event) => {
+const selectColor = () => {
+  document.addEventListener('click', (event) => {
+    if (event.target.classList.contains('color')) {
       const previousSelected = document.querySelector('.color.selected');
       previousSelected.classList.remove('selected');
       event.target.classList.add('selected');
+    }
+    newColor = event.target.style.backgroundColor;
+  });
+};
+
+
+// 10 - Crie uma função que permita preencher um pixel do quadro com a cor selecionada na paleta de cores
+
+const blankBoard = [];
+for (let index = 0; index < 25; index += 1) {
+  blankBoard.push('white');
+}
+const colorPixel = () => {
+  const pixels = document.querySelectorAll('.pixel');
+  for (let box = 0; box < pixels.length; box += 1) {
+    pixels[box].addEventListener('click', (event) => {
+      blankBoard[box] = newColor
+      event.target.style.backgroundColor = newColor;
     });
   }
 };
@@ -104,5 +122,5 @@ const selectColor = () => {
 window.onload = () => {
   loadPallete();
   selectColor();
-
+  colorPixel();
 };
