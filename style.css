@@ -59,14 +59,9 @@ h1 {
 }
 
 #input-container {
- 
   margin-left: 20px;
 }
 
-label {
- 
-}
-
-input[type="number"] {
+input {
   width: 118px;
 }
