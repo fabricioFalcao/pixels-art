@@ -100,7 +100,6 @@ const selectColor = () => {
   });
 };
 
-
 // 10 - Crie uma função que permita preencher um pixel do quadro com a cor selecionada na paleta de cores
 
 const blankBoard = [];
@@ -112,7 +111,7 @@ const colorPixel = () => {
   const pixels = document.querySelectorAll('.pixel');
   for (let box = 0; box < pixels.length; box += 1) {
     pixels[box].addEventListener('click', (event) => {
-      coloredBoard[box] = newColor
+      coloredBoard[box] = newColor;
       event.target.style.backgroundColor = newColor;
       localStorage.setItem('pixelBoard', JSON.stringify(coloredBoard));
     });
