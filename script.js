@@ -72,9 +72,10 @@ const loadPallete = () => {
 
 // 6 - Adicione à página um quadro contendo 25 pixels
 
+const pBoard = 'pixel-board';
 const add25Board = () => {
   const main = document.querySelector('main');
-  main.appendChild(elementCreator('section', 'pixel-board', 0, 0));
+  main.appendChild(elementCreator('section', pBoard, 0, 0));
 
   const board = document.querySelector('#pixel-board');
   board.style.maxWidth = '260px';
@@ -101,21 +102,22 @@ const selectColor = () => {
     }
     newColor = event.target.style.backgroundColor;
   });
+  return newColor;
 };
 
 // 10 - Crie uma função que permita preencher um pixel do quadro com a cor selecionada na paleta de cores
 
 const blankBoard = [];
-for (let index = 0; index < 100; index += 1) {
+for (let index = 0; index < 50 ** 2; index += 1) {
   blankBoard.push('white');
 }
 const coloredBoard = blankBoard.slice();
 const colorPixel = () => {
   const pixels = document.querySelectorAll('.pixel');
   for (let box = 0; box < pixels.length; box += 1) {
-    pixels[box].addEventListener('click', (event) => {
-      coloredBoard[box] = newColor;
-      event.target.style.backgroundColor = newColor;
+    pixels[box].addEventListener('click', (e) => {
+      coloredBoard[box] = selectColor();
+      e.target.style.backgroundColor = coloredBoard[box];
       localStorage.setItem('pixelBoard', JSON.stringify(coloredBoard));
     });
   }
@@ -164,11 +166,11 @@ const correctInput = () => {
 };
 
 const newBoard = (n) => {
-  document.getElementById('pixel-board').remove();
+  document.getElementById(pBoard).remove();
   localStorage.removeItem('pixelBoard');
 
   const main = document.querySelector('main');
-  main.appendChild(elementCreator('section', 'pixel-board', 0, 0));
+  main.appendChild(elementCreator('section', pBoard, 0, 0));
 
   const board = document.querySelector('#pixel-board');
   board.style.maxWidth = `${52 * n}px`;
@@ -176,6 +178,7 @@ const newBoard = (n) => {
   for (let i = 1; i <= n * n; i += 1) {
     board.appendChild(elementCreator('div', 0, 'pixel', 0));
   }
+  colorPixel();
 };
 
 const resizeBoard = () => {
@@ -203,6 +206,7 @@ const loadBoardSize = () => {
   if (savedSize) {
     newBoard(Number(savedSize));
   }
+  loadBoard();
 };
 
 // Functions on load
