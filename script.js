@@ -1,3 +1,5 @@
+// PROJETO PIXEL ART
+
 // Função para criar novos elementos no "body". Para não declarar um atributo, declare o parâmetro como "0".
 
 function elementCreator(elementType, elementId, elementClass, elementText) {
